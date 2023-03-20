@@ -6,8 +6,13 @@ resource "aws_route_table" "PUB-SN-RT"{
         gateway_id = aws_internet_gateway.WP-IGW.id
     }
 
+    route {
+        ipv6_cidr_block = "::/0"
+        gateway_id = aws_internet_gateway.WP-IGW.id
+     }
+
     tags = {
-        Name = "WP-RT"
+        Name = "VPC-WP-RT-PUB"
     }
 }
 

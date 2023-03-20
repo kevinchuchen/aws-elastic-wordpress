@@ -15,3 +15,14 @@ variable "GITHUB_ACCESS_TOKEN" {
   description = "Github access token"
   sensitive   = true
 }
+
+variable "DB_PASSWORD" {
+  type        = string
+  description = "DB password"
+  sensitive   = true
+}
+variable "DB_ROOT_PASSWORD" {
+  type        = string
+  description = "DB root password"
+  sensitive   = true
+}
