@@ -26,3 +26,4 @@ resource "aws_ssm_parameter" "DBRootPassword" {
   type  = "SecureString"
   value = var.DBRootPassword
 }
+
