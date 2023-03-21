@@ -48,3 +48,28 @@ resource "aws_security_group" "SG-DB" {
     Name = "SG-DB"
   }
 }
+
+resource "aws_security_group" "SG-EFS" {
+  name_prefix        = "SG-EFS-"
+  description = "Control access to File System"
+  vpc_id      = aws_vpc.main.id
+
+  ingress {
+    description      = "Allow NFS/EFS IPv4 IN"
+    from_port        = 2049
+    to_port          = 2049
+    protocol         = "tcp"
+    security_groups  = [aws_security_group.SG-WP.id]
+  }
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  tags = {
+    Name = "SG-EFS"
+  }
+}

@@ -18,6 +18,7 @@ module "SSM_Parameter" {
   DBPassword = var.DB_PASSWORD
   DBRootPassword = var.DB_ROOT_PASSWORD
   DB-ENDPOINT = module.RDS_Instance.RDS-ENDPOINT
+  EFS-ID = module.EFS_Instance.FS-ID
 }
 
 module "Launch_EC2_Template"{
@@ -27,6 +28,7 @@ module "Launch_EC2_Template"{
   WP-security-group-id = module.create_networking.WP-security-group-id
   SNPUB-A-ID = module.create_networking.SNPUB-A-ID
   RDS-endpoint-address = module.RDS_Instance.RDS-ENDPOINT
+  EFS-ID = module.EFS_Instance.FS-ID
 }
 
 module "RDS_Instance"{
@@ -39,4 +41,12 @@ module "RDS_Instance"{
   SSM-DB-PASSWORD = module.SSM_Parameter.RDS-DB-PASSWORD
   SG-DB-ID = module.create_networking.DB-security-group-id
   current-region = data.aws_region.current.name
+}
+
+module "EFS_Instance" {
+  source = "./modules/EFS"
+  SNAPP-A-ID = module.create_networking.SNAPP-A-ID
+  SNAPP-B-ID = module.create_networking.SNAPP-B-ID
+  SNAPP-C-ID = module.create_networking.SNAPP-C-ID
+  EFS-SG-ID = module.create_networking.EFS-security-group-id
 }

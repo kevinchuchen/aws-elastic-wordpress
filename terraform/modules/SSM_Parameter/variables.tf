@@ -14,3 +14,8 @@ variable "DB-ENDPOINT"{
     type     = string
     description = "DB-endpoint from RDS"
 }
+
+variable "EFS-ID"{
+    type     = string
+    description = "EFS File system ID"
+}

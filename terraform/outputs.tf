@@ -10,3 +10,7 @@ output "DB-NAME" {
 output "DB-ENDPOINT" {
     value = module.RDS_Instance.RDS-ENDPOINT
 }
+
+output "EFS-ID" {
+    value = module.EFS_Instance.FS-ID
+}

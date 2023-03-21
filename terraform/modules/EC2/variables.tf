@@ -22,3 +22,8 @@ variable "RDS-endpoint-address"{
     type        = string
     description = "RDS Endpoint address dependancy to ensure RDS is created before bash script is run"
 }
+
+variable "EFS-ID"{
+    type        = string
+    description = "EFS file system dependancy to ensure EFS is created before bash script is run"
+}

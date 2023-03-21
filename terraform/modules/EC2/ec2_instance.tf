@@ -6,5 +6,5 @@ resource "aws_instance" "WP-instance" {
     tags = {
         Name = "WP-ec2-instance"
     }
-    depends_on = [var.RDS-endpoint-address]
+    depends_on = [var.RDS-endpoint-address, var.EFS-ID]
 } 

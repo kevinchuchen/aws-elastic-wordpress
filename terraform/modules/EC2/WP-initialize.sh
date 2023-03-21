@@ -1,5 +1,8 @@
 #!/bin/bash -xe
 
+EFSFSID=$(aws ssm get-parameters --region us-east-1 --names /A4L/Wordpress/EFSFSID --query Parameters[0].Value)
+EFSFSID=`echo $EFSFSID | sed -e 's/^"//' -e 's/"$//'`
+
 DBPassword=$(aws ssm get-parameters --region us-east-1 --names /Wordpress/DBPassword --with-decryption --query Parameters[0].Value)
 DBPassword=`echo $DBPassword | sed -e 's/^"//' -e 's/"$//'`
 
@@ -18,17 +21,19 @@ DBEndpoint=`echo $DBEndpoint | sed -e 's/^"//' -e 's/"$//'`
 yum -y update
 yum -y upgrade
 
-yum install -y mariadb-server httpd wget
+yum install -y mariadb-server httpd wget amazon-efs-utils
 amazon-linux-extras install -y lamp-mariadb10.2-php7.2 php7.2
 amazon-linux-extras install epel -y
 yum install stress -y
 
 systemctl enable httpd
-systemctl enable mariadb
 systemctl start httpd
-systemctl start mariadb
 
-mysqladmin -u root password $DBRootPassword
+mkdir -p /var/www/html/wp-content
+chown -R ec2-user:apache /var/www/
+echo -e "$EFSFSID:/ /var/www/html/wp-content efs _netdev,tls,iam 0 0" >> /etc/fstab
+mount -a -t efs defaults
+
 
 wget http://wordpress.org/latest.tar.gz -P /var/www/html
 cd /var/www/html
@@ -48,11 +53,4 @@ chown -R ec2-user:apache /var/www
 chmod 2775 /var/www
 find /var/www -type d -exec chmod 2775 {} \;
 find /var/www -type f -exec chmod 0664 {} \;
-
-echo "CREATE DATABASE $DBName;" >> /tmp/db.setup
-echo "CREATE USER '$DBUser'@'localhost' IDENTIFIED BY '$DBPassword';" >> /tmp/db.setup
-echo "GRANT ALL ON $DBName.* TO '$DBUser'@'localhost';" >> /tmp/db.setup
-echo "FLUSH PRIVILEGES;" >> /tmp/db.setup
-mysql -u root --password=$DBRootPassword < /tmp/db.setup
-rm /tmp/db.setup
 

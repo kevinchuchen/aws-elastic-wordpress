@@ -19,12 +19,11 @@ resource "aws_launch_template" "ec2-launch-template"{
         delete_on_termination = true
         security_groups = [var.WP-security-group-id]
     }
-    
+
     credit_specification {
         cpu_credits = "standard"
     }
 }
-
 
 data "aws_ami" "Amazon-Linux"{
     owners = ["amazon"]
