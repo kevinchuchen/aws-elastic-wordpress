@@ -9,3 +9,8 @@ variable "DBRootPassword" {
   description = "DB Root Password"
   sensitive   = true
 }
+
+variable "DB-ENDPOINT"{
+    type     = string
+    description = "DB-endpoint from RDS"
+}

@@ -17,11 +17,26 @@ module "SSM_Parameter" {
   source = "./modules/SSM_Parameter"
   DBPassword = var.DB_PASSWORD
   DBRootPassword = var.DB_ROOT_PASSWORD
+  DB-ENDPOINT = module.RDS_Instance.RDS-ENDPOINT
 }
 
-module "Launch_Template"{
+module "Launch_EC2_Template"{
   source = "./modules/EC2"
   instance-profile = module.manage_IAM_role.IAM-Instance-Profile-ID
   current-region = data.aws_region.current.name
   WP-security-group-id = module.create_networking.WP-security-group-id
+  SNPUB-A-ID = module.create_networking.SNPUB-A-ID
+  RDS-endpoint-address = module.RDS_Instance.RDS-ENDPOINT
+}
+
+module "RDS_Instance"{
+  source = "./modules/RDS"
+  SNDB-A-ID = module.create_networking.SNDB-A-ID
+  SNDB-B-ID = module.create_networking.SNDB-B-ID
+  SNDB-C-ID = module.create_networking.SNDB-C-ID
+  SSM-DB-NAME = module.SSM_Parameter.RDS-DB-NAME
+  SSM-DB-USERNAME = module.SSM_Parameter.RDS-DB-USERNAME
+  SSM-DB-PASSWORD = module.SSM_Parameter.RDS-DB-PASSWORD
+  SG-DB-ID = module.create_networking.DB-security-group-id
+  current-region = data.aws_region.current.name
 }

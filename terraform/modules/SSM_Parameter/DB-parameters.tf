@@ -1,7 +1,7 @@
 resource "aws_ssm_parameter" "DBUser" {
   name  = "/Wordpress/DBUser"
   type  = "String"
-  value = "WP-User"
+  value = "WP_User"
 }
 
 resource "aws_ssm_parameter" "DBName" {
@@ -13,7 +13,7 @@ resource "aws_ssm_parameter" "DBName" {
 resource "aws_ssm_parameter" "DBEndpoint" {
   name  = "/Wordpress/DBEndpoint"
   type  = "String"
-  value = "localhost"
+  value = var.DB-ENDPOINT
 }
 
 resource "aws_ssm_parameter" "DBPassword" {
