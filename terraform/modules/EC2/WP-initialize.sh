@@ -1,6 +1,6 @@
 #!/bin/bash -xe
 
-ALBDNSNAME=$(aws ssm get-parameters --region us-east-1 --names /A4L/Wordpress/ALBDNSNAME --query Parameters[0].Value)
+ALBDNSNAME=$(aws ssm get-parameters --region us-east-1 --names /Wordpress/ALBDNSNAME --query Parameters[0].Value)
 ALBDNSNAME=`echo $ALBDNSNAME | sed -e 's/^"//' -e 's/"$//'`
 
 EFSFSID=$(aws ssm get-parameters --region us-east-1 --names /Wordpress/EFSFSID --query Parameters[0].Value)
