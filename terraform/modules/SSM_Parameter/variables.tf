@@ -10,12 +10,17 @@ variable "DBRootPassword" {
   sensitive   = true
 }
 
-variable "DB-ENDPOINT"{
-    type     = string
-    description = "DB-endpoint from RDS"
+variable "DB-ENDPOINT" {
+  type        = string
+  description = "DB-endpoint from RDS"
 }
 
-variable "EFS-ID"{
-    type     = string
-    description = "EFS File system ID"
+variable "EFS-ID" {
+  type        = string
+  description = "EFS File system ID"
+}
+
+variable "ALB-DNS" {
+  type        = string
+  description = "ALB DNS url"
 }

@@ -14,39 +14,44 @@ module "manage_IAM_role" {
 }
 
 module "SSM_Parameter" {
-  source = "./modules/SSM_Parameter"
-  DBPassword = var.DB_PASSWORD
+  source         = "./modules/SSM_Parameter"
+  DBPassword     = var.DB_PASSWORD
   DBRootPassword = var.DB_ROOT_PASSWORD
-  DB-ENDPOINT = module.RDS_Instance.RDS-ENDPOINT
-  EFS-ID = module.EFS_Instance.FS-ID
+  DB-ENDPOINT    = module.RDS_Instance.RDS-ENDPOINT
+  EFS-ID         = module.EFS_Instance.FS-ID
+  ALB-DNS        = module.Launch_EC2_Template.ALB-DNS-NAME
 }
 
-module "Launch_EC2_Template"{
-  source = "./modules/EC2"
-  instance-profile = module.manage_IAM_role.IAM-Instance-Profile-ID
-  current-region = data.aws_region.current.name
+module "Launch_EC2_Template" {
+  source               = "./modules/EC2"
+  instance-profile     = module.manage_IAM_role.IAM-Instance-Profile-ID
+  current-region       = data.aws_region.current.name
   WP-security-group-id = module.create_networking.WP-security-group-id
-  SNPUB-A-ID = module.create_networking.SNPUB-A-ID
+  SNPUB-A-ID           = module.create_networking.SNPUB-A-ID
+  SNPUB-B-ID           = module.create_networking.SNPUB-B-ID
+  SNPUB-C-ID           = module.create_networking.SNPUB-C-ID
   RDS-endpoint-address = module.RDS_Instance.RDS-ENDPOINT
-  EFS-ID = module.EFS_Instance.FS-ID
+  EFS-ID               = module.EFS_Instance.FS-ID
+  ALB-SG-ID            = module.create_networking.ALB-security-group-id
+  VPC-ID               = module.create_networking.VPC-ID
 }
 
-module "RDS_Instance"{
-  source = "./modules/RDS"
-  SNDB-A-ID = module.create_networking.SNDB-A-ID
-  SNDB-B-ID = module.create_networking.SNDB-B-ID
-  SNDB-C-ID = module.create_networking.SNDB-C-ID
-  SSM-DB-NAME = module.SSM_Parameter.RDS-DB-NAME
+module "RDS_Instance" {
+  source          = "./modules/RDS"
+  SNDB-A-ID       = module.create_networking.SNDB-A-ID
+  SNDB-B-ID       = module.create_networking.SNDB-B-ID
+  SNDB-C-ID       = module.create_networking.SNDB-C-ID
+  SSM-DB-NAME     = module.SSM_Parameter.RDS-DB-NAME
   SSM-DB-USERNAME = module.SSM_Parameter.RDS-DB-USERNAME
   SSM-DB-PASSWORD = module.SSM_Parameter.RDS-DB-PASSWORD
-  SG-DB-ID = module.create_networking.DB-security-group-id
-  current-region = data.aws_region.current.name
+  SG-DB-ID        = module.create_networking.DB-security-group-id
+  current-region  = data.aws_region.current.name
 }
 
 module "EFS_Instance" {
-  source = "./modules/EFS"
+  source     = "./modules/EFS"
   SNAPP-A-ID = module.create_networking.SNAPP-A-ID
   SNAPP-B-ID = module.create_networking.SNAPP-B-ID
   SNAPP-C-ID = module.create_networking.SNAPP-C-ID
-  EFS-SG-ID = module.create_networking.EFS-security-group-id
+  EFS-SG-ID  = module.create_networking.EFS-security-group-id
 }
