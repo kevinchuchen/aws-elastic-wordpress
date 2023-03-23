@@ -20,7 +20,7 @@ variable "EFS-ID" {
   description = "EFS File system ID"
 }
 
-variable "ALB-DNS" {
-  type        = string
-  description = "ALB DNS url"
-}
+# variable "ALB-DNS" {
+#   type        = string
+#   description = "ALB DNS url"
+# }

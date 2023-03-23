@@ -70,6 +70,7 @@ $SQL_COMMAND "UPDATE wp_options SET option_value = replace(option_value, '$OLD_U
 $SQL_COMMAND "UPDATE wp_posts SET guid = replace(guid, '$OLD_URL','http://$ALBDNSNAME');"
 $SQL_COMMAND "UPDATE wp_posts SET post_content = replace(post_content, '$OLD_URL', 'http://$ALBDNSNAME');"
 $SQL_COMMAND "UPDATE wp_postmeta SET meta_value = replace(meta_value,'$OLD_URL','http://$ALBDNSNAME');"
+
 EOF
 
 chmod 755 /home/ec2-user/update_wp_ip.sh
