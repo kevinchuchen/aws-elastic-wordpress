@@ -7,7 +7,7 @@ resource "aws_autoscaling_group" "WP-ASG" {
   health_check_grace_period = 300
   health_check_type         = "ELB"
   metrics_granularity       = "1Minute"
-  enabled_metrics           = ["GroupMinSize","GroupMaxSize","GroupDesiredCapacity","GroupInServiceInstances","GroupPendingInstances","GroupStandbyInstances","GroupTerminatingInstances","GroupTotalInstances","GroupInServiceCapacity","GroupPendingCapacity","GroupStandbyCapacity","GroupTerminatingCapacity","GroupTotalCapacity","WarmPoolDesiredCapacity","WarmPoolWarmedCapacity","WarmPoolPendingCapacity","WarmPoolTerminatingCapacity","WarmPoolTotalCapacity","GroupAndWarmPoolDesiredCapacity","GroupAndWarmPoolTotalCapacity"]
+  enabled_metrics           = ["GroupMinSize", "GroupMaxSize", "GroupDesiredCapacity", "GroupInServiceInstances", "GroupPendingInstances", "GroupStandbyInstances", "GroupTerminatingInstances", "GroupTotalInstances", "GroupInServiceCapacity", "GroupPendingCapacity", "GroupStandbyCapacity", "GroupTerminatingCapacity", "GroupTotalCapacity", "WarmPoolDesiredCapacity", "WarmPoolWarmedCapacity", "WarmPoolPendingCapacity", "WarmPoolTerminatingCapacity", "WarmPoolTotalCapacity", "GroupAndWarmPoolDesiredCapacity", "GroupAndWarmPoolTotalCapacity"]
 
   protect_from_scale_in = false
   launch_template {
@@ -23,15 +23,15 @@ resource "aws_autoscaling_group" "WP-ASG" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "WP_HIGH_CPU_UTIL" {
-  alarm_name                = "WP_HIGH_CPU_UTIL"
-  comparison_operator       = "GreaterThanOrEqualToThreshold"
-  evaluation_periods        = 2
-  metric_name               = "CPUUtilization"
-  namespace                 = "AWS/EC2"
-  period                    = 120
-  statistic                 = "Average"
-  threshold                 = 40
-  alarm_description         = "This metric monitors ec2 cpu utilization"
+  alarm_name          = "WP_HIGH_CPU_UTIL"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  evaluation_periods  = 2
+  metric_name         = "CPUUtilization"
+  namespace           = "AWS/EC2"
+  period              = 120
+  statistic           = "Average"
+  threshold           = 40
+  alarm_description   = "This metric monitors ec2 cpu utilization"
   dimensions = {
     AutoScalingGroupName = aws_autoscaling_group.WP-ASG.name
   }
@@ -39,15 +39,15 @@ resource "aws_cloudwatch_metric_alarm" "WP_HIGH_CPU_UTIL" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "WP_LOW_CPU_UTIL" {
-  alarm_name                = "WP_LOW_CPU_UTIL"
-  comparison_operator       = "LessThanThreshold"
-  evaluation_periods        = 2
-  metric_name               = "CPUUtilization"
-  namespace                 = "AWS/EC2"
-  period                    = 120
-  statistic                 = "Average"
-  threshold                 = 40
-  alarm_description         = "This metric monitors ec2 cpu utilization"
+  alarm_name          = "WP_LOW_CPU_UTIL"
+  comparison_operator = "LessThanThreshold"
+  evaluation_periods  = 2
+  metric_name         = "CPUUtilization"
+  namespace           = "AWS/EC2"
+  period              = 120
+  statistic           = "Average"
+  threshold           = 40
+  alarm_description   = "This metric monitors ec2 cpu utilization"
   dimensions = {
     AutoScalingGroupName = aws_autoscaling_group.WP-ASG.name
   }
