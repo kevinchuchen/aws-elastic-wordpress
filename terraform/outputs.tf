@@ -14,6 +14,6 @@ output "DB-ENDPOINT" {
 output "EFS-ID" {
   value = module.EFS_Instance.FS-ID
 }
-# output "ALB-DNS" {
-#     value = module.Launch_EC2_Template.ALB-DNS-NAME
-# }
+output "ALB-DNS" {
+    value = module.Launch_EC2_Template.ALB-DNS-NAME
+}

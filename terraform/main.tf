@@ -19,7 +19,7 @@ module "SSM_Parameter" {
   DBRootPassword = var.DB_ROOT_PASSWORD
   DB-ENDPOINT    = module.RDS_Instance.RDS-ENDPOINT
   EFS-ID         = module.EFS_Instance.FS-ID
-  # ALB-DNS        = module.Launch_EC2_Template.ALB-DNS-NAME
+  ALB-DNS        = module.Launch_EC2_Template.ALB-DNS-NAME
 }
 
 module "Launch_EC2_Template" {

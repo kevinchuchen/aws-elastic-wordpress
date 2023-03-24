@@ -36,7 +36,7 @@ mkdir -p /var/www/html/wp-content
 chown -R ec2-user:apache /var/www/
 echo -e "$EFSFSID:/ /var/www/html/wp-content efs _netdev,tls,iam 0 0" >> /etc/fstab
 mount -a -t efs defaults
-chown -R ec2-user:apache /var/www/
+# chown -R ec2-user:apache /var/www/
 
 wget http://wordpress.org/latest.tar.gz -P /var/www/html
 cd /var/www/html
