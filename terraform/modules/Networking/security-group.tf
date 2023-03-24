@@ -76,7 +76,7 @@ resource "aws_security_group" "SG-EFS" {
 
 resource "aws_security_group" "SG-ALB" {
   name_prefix = "SG-ALB-"
-  description = "Control access to File System"
+  description = "Control access to Load Balancer"
   vpc_id      = aws_vpc.main.id
 
   ingress {

@@ -36,7 +36,7 @@ mkdir -p /var/www/html/wp-content
 chown -R ec2-user:apache /var/www/
 echo -e "$EFSFSID:/ /var/www/html/wp-content efs _netdev,tls,iam 0 0" >> /etc/fstab
 mount -a -t efs defaults
-
+chown -R ec2-user:apache /var/www/
 
 wget http://wordpress.org/latest.tar.gz -P /var/www/html
 cd /var/www/html
@@ -70,7 +70,6 @@ $SQL_COMMAND "UPDATE wp_options SET option_value = replace(option_value, '$OLD_U
 $SQL_COMMAND "UPDATE wp_posts SET guid = replace(guid, '$OLD_URL','http://$ALBDNSNAME');"
 $SQL_COMMAND "UPDATE wp_posts SET post_content = replace(post_content, '$OLD_URL', 'http://$ALBDNSNAME');"
 $SQL_COMMAND "UPDATE wp_postmeta SET meta_value = replace(meta_value,'$OLD_URL','http://$ALBDNSNAME');"
-
 EOF
 
 chmod 755 /home/ec2-user/update_wp_ip.sh
