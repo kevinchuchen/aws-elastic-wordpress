@@ -1,3 +1,5 @@
+#Only used at the start when the ASG is not provisoned. Once the ASG is integrated, it will automatically provision an EC2 instance.
+
 # resource "aws_instance" "WP-instance" {
 #   subnet_id = var.SNPUB-A-ID
 #   launch_template {
