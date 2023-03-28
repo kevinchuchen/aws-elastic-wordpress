@@ -10,9 +10,6 @@ resource "aws_launch_template" "ec2-launch-template" {
     name = var.instance-profile
   }
 
-  placement {
-    availability_zone = "${var.current-region}a"
-  }
 
   network_interfaces {
     associate_public_ip_address = true

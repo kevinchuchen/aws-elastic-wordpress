@@ -25,7 +25,6 @@ module "SSM_Parameter" {
 module "Launch_EC2_Template" {
   source               = "./modules/EC2"
   instance-profile     = module.manage_IAM_role.IAM-Instance-Profile-ID
-  current-region       = data.aws_region.current.name
   WP-security-group-id = module.create_networking.WP-security-group-id
   SNPUB-A-ID           = module.create_networking.SNPUB-A-ID
   SNPUB-B-ID           = module.create_networking.SNPUB-B-ID
